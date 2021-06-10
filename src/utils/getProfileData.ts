@@ -1,18 +1,12 @@
 import nullthrows from 'nullthrows';
-import {SubjectAccessToken} from 'types';
 
 export async function getProfileData(
-  url: URL,
-  isCore: boolean,
+  url: URL
 ): Promise<FormattedProfileData> {
   const parser = new DOMParser();
 
-  const fetchOptions = {} as any;
-  const {accessToken} = await requestAccessToken(url, isCore);
-  fetchOptions.headers = {Authorization: `Bearer ${accessToken}`};
-
   url.searchParams.set('profile_liquid', 'true');
-  const response = await fetch(url.href, fetchOptions);
+  const response = await fetch(url.href);
 
   if (!response.ok) throw Error(response.statusText);
 
@@ -34,23 +28,6 @@ function noProfileFound(document: HTMLDocument) {
   return document.querySelector('#liquidProfileData') === null;
 }
 
-function requestAccessToken(
-  {origin}: URL,
-  isCore: boolean,
-): Promise<SubjectAccessToken> {
-  return new Promise((resolve, reject) => {
-    return chrome.runtime.sendMessage(
-      {type: 'request-core-access-token', origin, isCore},
-      ({token, error}) => {
-        if (error) {
-          return reject(error);
-        }
-        return resolve(token);
-      },
-    );
-  });
-}
-
 function formatLiquidProfileData(
   entries: ProfileNode[],
 ): FormattedProfileNode[] {
@@ -58,6 +35,7 @@ function formatLiquidProfileData(
     const nameParts = entry.partial.split('/');
     let name = '';
     let filepath = null;
+    // TODO: to figure out based on back-end partial data returned
     if (nameParts.length === 1 && !entry.partial.includes(':')) {
       name = `snippet:${entry.partial}`;
       filepath = `snippets/${entry.partial}.liquid`;
