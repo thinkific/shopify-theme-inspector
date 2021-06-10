@@ -6,7 +6,6 @@ export {
   emptyHTMLNode,
   updateInfoText,
 } from './domHelpers';
-export {Oauth2} from './oauth2';
 export {
   saveToLocalStorage,
   getFromLocalStorage,

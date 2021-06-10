@@ -16,7 +16,6 @@ module.exports = {
   },
   entry: {
     background: './src/background.ts',
-    popup: './src/popup.ts',
     devtools: './src/devtools.ts',
     detectThinkific: './src/detectThinkific.ts',
   },
@@ -47,11 +46,6 @@ module.exports = {
       filename: 'devtools.html',
       template: 'src/devtools.html',
       chunks: ['devtools'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'popupNotThinkificStore.html',
-      template: 'src/popupNotThinkificStore.html',
-      chunks: ['popup'],
     }),
     new HtmlWebpackInlineSVGPlugin(),
     new CopyPlugin({

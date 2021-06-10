@@ -15,7 +15,6 @@
     "128": "images/128-thinkific.png"
   },
   "page_action": {
-    "default_popup": "popupNotThinkificStore.html",
     "default_icon": {
       "16": "images/16-thinkific-dimmed.png",
       "32": "images/32-thinkific-dimmed.png",
