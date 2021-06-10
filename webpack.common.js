@@ -18,7 +18,7 @@ module.exports = {
     background: './src/background.ts',
     popup: './src/popup.ts',
     devtools: './src/devtools.ts',
-    detectShopify: './src/detectShopify.ts',
+    detectThinkific: './src/detectThinkific.ts',
   },
   module: {
     rules: [
@@ -49,13 +49,8 @@ module.exports = {
       chunks: ['devtools'],
     }),
     new HtmlWebpackPlugin({
-      filename: 'popupAuthFlow.html',
-      template: 'src/popupAuthFlow.html',
-      chunks: ['popup'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'popupNotShopifyStore.html',
-      template: 'src/popupNotShopifyStore.html',
+      filename: 'popupNotThinkificStore.html',
+      template: 'src/popupNotThinkificStore.html',
       chunks: ['popup'],
     }),
     new HtmlWebpackInlineSVGPlugin(),

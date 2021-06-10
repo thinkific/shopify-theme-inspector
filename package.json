@@ -1,5 +1,5 @@
 {
-  "name": "shopify-devtool",
+  "name": "thinkific-devtool",
   "version": "1.0.0",
   "description": "",
   "main": "src/background.ts",
@@ -9,21 +9,21 @@
     "test:watch": "jest --watch",
     "build": "webpack --config webpack.prod.js",
     "start": "webpack --config webpack.dev.js",
-    "zip": "yarn build && cd dist && zip -r -X ../shopify_devtools.zip ."
+    "zip": "yarn build && cd dist && zip -r -X ../thinkific_devtools.zip ."
   },
   "engines": {
     "node": ">=14.16.1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Shopify/shopify-devtools.git"
+    "url": "git+https://github.com/thinkific/thinkific-theme-inspector.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Shopify/shopify-devtools/issues"
+    "url": "https://github.com/thinkific/thinkific-theme-inspector/issues"
   },
-  "homepage": "https://github.com/Shopify/shopify-devtools#readme",
+  "homepage": "https://github.com/thinkific/thinkific-theme-inspector#readme",
   "dependencies": {
     "@types/d3": "^5.16.4",
     "@types/jsdom": "^12.2.4",

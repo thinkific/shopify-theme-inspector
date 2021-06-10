@@ -27,10 +27,10 @@ function getOauth2Client(origin: string) {
   });
 }
 
-// Change icon from colored to greyscale depending on whether or not Shopify has
+// Change icon from colored to greyscale depending on whether or not thinkific has
 // been detected
 function setIconAndPopup(active: string, tabId: number) {
-  const iconType = active ? 'shopify' : 'shopify-dimmed';
+  const iconType = active ? 'thinkific' : 'thinkific-dimmed';
   chrome.pageAction.setIcon({
     tabId,
     path: {
@@ -41,9 +41,6 @@ function setIconAndPopup(active: string, tabId: number) {
     },
   });
 
-  if (active) {
-    chrome.pageAction.setPopup({tabId, popup: './popupAuthFlow.html'});
-  }
   chrome.pageAction.show(tabId);
 }
 
@@ -69,26 +66,12 @@ chrome.runtime.onMessage.addListener(({type, origin}, _, sendResponse) => {
   return true;
 });
 
-// Create a listener which handles when detectShopify.js, which executes in the
-// the same context as a tab, sends the results of of whether or not a Shopify
-// employee was detected
-chrome.runtime.onMessage.addListener((event, sender) => {
-  if (
-    sender.tab &&
-    sender.tab.id &&
-    event.type === 'detect-shopify-employee' &&
-    event.hasDetectedShopifyEmployee === true
-  ) {
-    shopifyEmployee = true;
-  }
-});
-
-// Create a listener which handles when detectShopify.js, which executes in the
+// Create a listener which handles when detectThinkific.js, which executes in the
 // the same context as a tab, sends the results of of whether or not Shopify was
 // detected
 chrome.runtime.onMessage.addListener((event, sender) => {
-  if (sender.tab && sender.tab.id && event.type === 'detect-shopify') {
-    setIconAndPopup(event.hasDetectedShopify, sender.tab.id);
+  if (sender.tab && sender.tab.id && event.type === 'detect-thinkific') {
+    setIconAndPopup(event.hasDetectedThinkific, sender.tab.id);
   }
 });
 
