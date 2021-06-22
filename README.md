@@ -82,6 +82,7 @@ Evaluate whether these sections are necessary or refactor it so that it becomes 
 ### I received an error page which says "This page cannot be profiled."
 
 If you see this error, it may be because of one of the following conditions:
+  * You must be logged in to the site as either a Thinkific System User, Site Owner or Site Admin.
   * Your account does not have access to the current store you are trying to profile.
   * There was an unhandled error in the request, e.g. timeout, lost connection, etc.
 
