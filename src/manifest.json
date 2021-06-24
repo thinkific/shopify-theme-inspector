@@ -1,7 +1,7 @@
 {
-  "name": "Shopify Theme Inspector for Chrome",
-  "version": "2.0.3",
-  "description": "Profile and debug Liquid template on your Shopify store",
+  "name": "Thinkific Theme Inspector for Chrome",
+  "version": "1.0.0",
+  "description": "Profile and debug Liquid template on your Thinkific site",
   "devtools_page": "devtools.html",
   "permissions": ["storage", "identity", "activeTab"],
   "background": {
@@ -9,25 +9,24 @@
     "persistent": false
   },
   "icons": {
-    "16": "images/16-shopify.png",
-    "32": "images/32-shopify.png",
-    "48": "images/48-shopify.png",
-    "128": "images/128-shopify.png"
+    "16": "images/16-thinkific.png",
+    "32": "images/32-thinkific.png",
+    "48": "images/48-thinkific.png",
+    "128": "images/128-thinkific.png"
   },
   "page_action": {
-    "default_popup": "popupNotShopifyStore.html",
     "default_icon": {
-      "16": "images/16-shopify-dimmed.png",
-      "32": "images/32-shopify-dimmed.png",
-      "48": "images/48-shopify-dimmed.png",
-      "128": "images/128-shopify-dimmed.png"
+      "16": "images/16-thinkific-dimmed.png",
+      "32": "images/32-thinkific-dimmed.png",
+      "48": "images/48-thinkific-dimmed.png",
+      "128": "images/128-thinkific-dimmed.png"
     }
   },
   "manifest_version": 2,
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["detectShopify.js"],
+      "js": ["detectThinkific.js"],
       "run_at": "document_idle"
     }
   ]

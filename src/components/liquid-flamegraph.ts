@@ -76,22 +76,22 @@ export default class LiquidFlamegraph {
     updateInfoText(selectors.nodeTime, `${formatNodeTime(node.value)}ms`);
 
     const code = document.querySelector(selectors.code);
-    const codeLink = document.querySelector(selectors.codeAnchor);
-    const codeNoLink = document.querySelector(selectors.codeNoAnchor);
+    // TODO: adding linking to the theme editor will be phase 2
+    // const codeLink = document.querySelector(selectors.codeAnchor);
+    // const codeNoLink = document.querySelector(selectors.codeNoAnchor);
+    // if (node.data.filepath) {
+    //   const clickableLink = await this.generateClickableLink(
+    //     node.data.filepath,
+    //     node.data.line,
+    //   );
+    //   code!.querySelector('a')!.href = clickableLink;
 
-    if (node.data.filepath) {
-      const clickableLink = await this.generateClickableLink(
-        node.data.filepath,
-        node.data.line,
-      );
-      code!.querySelector('a')!.href = clickableLink;
-
-      codeNoLink?.classList.add('hide');
-      codeLink?.classList.remove('hide');
-    } else {
-      codeLink?.classList.add('hide');
-      codeNoLink?.classList.remove('hide');
-    }
+    //   codeNoLink?.classList.add('hide');
+    //   codeLink?.classList.remove('hide');
+    // } else {
+    //   codeLink?.classList.add('hide');
+    //   codeNoLink?.classList.remove('hide');
+    // }
     code!.querySelectorAll('.code-snippet').forEach(function(el) {
       el.textContent = node.data.code || node.data.filepath;
     });

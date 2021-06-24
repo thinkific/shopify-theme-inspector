@@ -1,11 +1,9 @@
 import escape from 'lodash.escape';
-import {RenderBackend} from './env';
 import Toolbar from './components/toolbar';
 import LiquidFlamegraph from './components/liquid-flamegraph';
 import {
   getProfileData,
   setTotalTime,
-  setRenderingBackend,
   getBrowserTheme,
   emptyHTMLNode,
 } from './utils';
@@ -27,10 +25,10 @@ const selectors = {
 let liquidFlamegraph: LiquidFlamegraph;
 
 chrome.devtools.inspectedWindow.eval(
-  `typeof window.Shopify === 'object'`,
-  function(isShopifyStore: boolean) {
-    if (isShopifyStore) {
-      chrome.devtools.panels.create('Shopify', '', './devtools.html');
+  `typeof window.Thinkific === 'object'`,
+  function(isThinkificSite: boolean) {
+    if (isThinkificSite) {
+      chrome.devtools.panels.create('Thinkific', '', './devtools.html');
 
       if (getBrowserTheme() === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -84,36 +82,9 @@ function clear() {
 function getInspectedWindowURL(): Promise<URL> {
   return new Promise(resolve => {
     chrome.devtools.inspectedWindow.eval(
-      `(/myshopify\\.io/.test(document.location.host) ? document.location.host : Shopify.shop) + document.location.pathname + document.location.search`,
+      `document.location.protocol + '//' + document.location.host + document.location.pathname + document.location.search`,
       function(currentUrl: string) {
-        resolve(new URL(`https://${currentUrl}`));
-      },
-    );
-  });
-}
-
-function determineRenderBackend(): Promise<boolean> {
-  return new Promise(resolve => {
-    chrome.devtools.inspectedWindow.eval(
-      `
-      function determineRenderBackend() {
-        const scripts = document.querySelectorAll('script');
-        let isCore = false;
-        for (let i = 0; i < scripts.length; i++) {
-          const content = scripts[i].textContent;
-          if (typeof content === 'string') {
-            if (/BOOMR\\.application\\s*=\\s*"core"/.test(content)) {
-              isCore = true;
-              break;
-            }
-          }
-        }
-        return isCore
-      }
-      determineRenderBackend()
-      `,
-      function(isCore: boolean) {
-        resolve(isCore);
+        resolve(new URL(currentUrl));
       },
     );
   });
@@ -129,14 +100,9 @@ async function refreshPanel() {
 
   let profile: FormattedProfileData;
   const url = await getInspectedWindowURL();
-  const isCore = await determineRenderBackend();
-
-  const renderingBackend = isCore
-    ? RenderBackend.Core
-    : RenderBackend.StorefrontRenderer;
 
   try {
-    profile = await getProfileData(url, isCore);
+    profile = await getProfileData(url);
 
     liquidFlamegraph = new LiquidFlamegraph(
       document.querySelector(selectors.flamegraphContainer),
@@ -148,7 +114,6 @@ async function refreshPanel() {
     // purposes so that timing information gets displayed after the flamegraph is shown.
     setTimeout(function() {
       setTotalTime(profile.value);
-      setRenderingBackend(renderingBackend);
     }, 300);
 
     document
